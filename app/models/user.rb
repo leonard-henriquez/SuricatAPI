@@ -11,6 +11,9 @@ class User < ApplicationRecord
   before_validation :sanitize_content, on: [:create, :update]
   after_create :create_importances
 
+  # Authentication
+  has_secure_password
+
   #--------------------- Methods ---------------------#
 
   # Cleans the names for proper capilization

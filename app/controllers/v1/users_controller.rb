@@ -3,6 +3,7 @@ module V1
   class UsersController < ApplicationController
     include RenderJson
 
+    before_action :authorize_request, except: :create
     before_action :set_user, only: [:show, :update, :destroy]
 
     # GET /users
@@ -15,7 +16,7 @@ module V1
     def create
       @user = User.create!(user_params)
       render_json @user,
-                    status: :created
+                  status: :created
     end
 
     # GET /users/:id

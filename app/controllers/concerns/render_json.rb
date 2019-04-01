@@ -27,7 +27,11 @@ module RenderJson
   private
 
   def collection_type(collection)
-    collection.klass.base_class.name
+    if collection.is_a?(ActiveRecord::Relation)
+      collection.klass.base_class.name
+    else
+      collection.class.name
+    end
   end
 
   def serializer_type(serializer_key)
