@@ -33,5 +33,18 @@ module SuricatAPI
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # log format
+    config.log_formatter = proc do |severity, time, progname, msg|
+      formatted_severity = sprintf("%-5s",severity.to_s)
+      formatted_time = time.strftime("%H:%M:%S")
+      "[#{formatted_severity} #{formatted_time}] #{msg}\n"
+    end
+
+    config.action_dispatch.default_headers = {}
+
+    config.public_file_server.enabled = false
+    config.middleware.delete Rack::Sendfile
+    config.middleware.delete Rack::MethodOverride
   end
 end
